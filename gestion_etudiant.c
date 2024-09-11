@@ -44,15 +44,15 @@ void ajouter_elt_tableau()
     strcpy(T[2].nom, "mohammed");
     strcpy(T[2].prenom, "ouali");
     strcpy(T[2].departement, "math");
-    T[2].note_generale = 16.23;
+    T[2].note_generale = 10.01;
     T[2].date_naissance.jour = 16;
     T[2].date_naissance.mois = 11;
     T[2].date_naissance.annee = 2006;
     T[3].id = 4; // eleve numero 4
-    strcpy(T[3].nom, "bachir");
+    strcpy(T[3].nom, "karim");
     strcpy(T[3].prenom, "lkhair");
     strcpy(T[3].departement, "chimie");
-    T[3].note_generale = 9.23;
+    T[3].note_generale = 7.23;
     T[3].date_naissance.jour = 30;
     T[3].date_naissance.mois = 7;
     T[3].date_naissance.annee = 1998;
@@ -370,15 +370,17 @@ void culcule_moy()
 }
 void statique()
 {
+    etudiant T_cpy[100];
+    etudiant temp;
     int choix;
     int i, j;
     int nb_math = 0, nb_physique = 0, nb_chimie = 0, nb_informatique = 0;
     float seuil;
-    printf("|1=>Afficher le nombre total d'etudiants inscrits                                      |\n");
-    printf("|2=>Afficher le nombre d'etudiants dans chaque departement                             |\n");
-    printf("|3=>Afficher les etudiants ayant une moyenne generale supérieure a un certain seuil    |\n");
-    printf("|4=>Afficher les 3 etudiants ayant les meilleures notes                                |\n");
-    printf("|5=>Afficher le nombre d'etudiants ayant reussi dans chaque departement                |\n");
+    printf("|1=>afficher le nombre total d'etudiants inscrits                                      |\n");
+    printf("|2=>afficher le nombre d'etudiants dans chaque departement                             |\n");
+    printf("|3=>afficher les etudiants ayant une moyenne generale superieure a un certain seuil    |\n");
+    printf("|4=>afficher les 3 etudiants ayant les meilleures notes                                |\n");
+    printf("|5=>afficher le nombre d'etudiants ayant reussi dans chaque departement                |\n");
     printf("\n");
     printf("entrer votre choix : ");
     scanf("%d", &choix);
@@ -421,15 +423,14 @@ void statique()
             if (T[i].note_generale >= seuil)
             {
                 printf("l'etudiant d'ID %d et nom %s : \n", T[i].id, T[i].nom);
+                break;
             }
         }
-        break;
+        
     case 4:
         for (i = 0; i < 3; i++)
         {
-            etudiant T_cpy[100];
-            etudiant temp;
-            for (int i = 0; i < taille; i++)
+            for ( i = 0; i < taille; i++)
             {
                 T_cpy[i] = T[i];
             }
@@ -446,13 +447,14 @@ void statique()
                     }
                 }
             }
-            printf(" les 3 etudiants ayant les meilleures notes sont :");
+            printf(" les 3 etudiants ayant les meilleures notes sont : \n");
             for (i = 0; i < 3; i++)
             {
-                printf("eleve %d est du nom %s et prenom %s", i + 1, T_cpy[i].nom, T_cpy[i].prenom);
-            }
+                printf("| eleve %d est du nom %s et prenom %s \n|", i + 1, T_cpy[i].nom, T_cpy[i].prenom);
+            }}
+            break;
 
-        case 5:
+    case 5:
             for (int i = 0; i < taille; i++)
             {
                 if (T[i].note_generale >= 10)
@@ -465,42 +467,50 @@ void statique()
                         nb_chimie++;
                     if (strcmp(T[i].departement, "informatique") == 0)
                         nb_informatique++;
-                    printf("le nombre d'etudiant ayant reussi dans le departement math : %d ", nb_math);
-                    printf("le nombre d'etudiant ayant reussi dans le departement physique : %d ", nb_physique);
-                    printf("le nombre d'etudiant ayant reussi dans le departement chimie : %d ", nb_chimie);
-                    printf("le nombre d'etudiant ayant reussi dans le departement informatique : %d ", nb_informatique);
+                   
                 }
             }
+             printf("le nombre d'etudiant ayant reussi dans le departement math : %d                             |\n", nb_math);
+                    printf("| le nombre d'etudiant ayant reussi dans le departement physique : %d                |\n", nb_physique);
+                    printf("| le nombre d'etudiant ayant reussi dans le departement chimie : %d                  |\n", nb_chimie);
+                    printf("| le nombre d'etudiant ayant reussi dans le departement informatique : %d            |\n", nb_informatique);
+            break;
         }
     }
-}
+
 void recherche()
 {
     int choix;
     char name[20];
-    printf("| 1=>recherche par nom d'etudiant  | 2=>Afficher la liste des étudiants inscrits |\n");
+    int found = 0;
+    printf("| 1=>recherche par nom d'etudiant  | 2=>Afficher la liste des etudiants inscrits |\n");
     printf("entrer votre choix : ");
     scanf("%d", &choix);
     if (choix == 1)
     {
-        printf("entrer le nom de l'etudiant que vous voulez chercher : ");
-        scanf("%s", name);
-        for (int i = 0; i < taille; i++)
-        {
-            if (strcmp(T[i].nom, name) == 0)
-            {
-                printf("l'eleve que vous avez chercher est : \n");
-                printf("| le nom est %s \n", T[i].nom);
-                printf("le prenom est %s \n", T[i].prenom);
-                printf("le departement est %s \n", T[i].departement);
-                printf("le numero unique de l'eleve est : %d \n", T[i].id);
-                printf("la note generale est : %.2f \n", T[i].note_generale);
-                break;
-            }
-            else
-                printf("eleve n'est pas trouver");
-        }
+        printf("Entrer le nom de l'etudiant que vous voulez chercher : ");
+scanf("%s", name);
+
+for (int i = 0; i < taille; i++) {
+    if (strcmp(T[i].nom, name) == 0) {
+        printf("l'eleve que vous avez chercher est : \n");
+        printf("le nom est %s \n", T[i].nom);
+        printf("le prenom est %s \n", T[i].prenom);
+        printf("le departement est %s \n", T[i].departement);
+        printf("le numero unique de l'eleve est : %d \n", T[i].id);
+        printf("la note generale est : %.2f \n", T[i].note_generale);
+        found = 1;  // Set found flag to true
+        break;
     }
+}
+
+// If the student was not found
+if (!found) {
+    printf("eleve non trouver\n");
+}
+
+        }
+
     else if (choix == 2)
     {
         int choice;
@@ -520,6 +530,7 @@ void recherche()
                 if (strcmp(T[i].departement, "math") == 0)
                     nb_math++;
             }
+            printf("le nombre d'etudiant dans le departement math est : %d \n", nb_math);
             break;
         case 2:
             for (int i = 0; i < taille; i++)
@@ -527,6 +538,7 @@ void recherche()
                 if (strcmp(T[i].departement, "physique") == 0)
                     nb_physique++;
             }
+            printf("le nombre d'etudiant dans le departement physique est : %d \n", nb_physique);
             break;
         case 3:
             for (int i = 0; i < taille; i++)
@@ -534,6 +546,7 @@ void recherche()
                 if (strcmp(T[i].departement, "chimie") == 0)
                     nb_chimie++;
             }
+             printf("le nombre d'etudiant dans le departement chime est : %d \n", nb_chimie);
             break;
 
         case 4:
@@ -542,17 +555,19 @@ void recherche()
                 if (strcmp(T[i].departement, "informatique") == 0)
                     nb_informatique++;
             }
+            printf("le nombre d'etudiant dans le departement informatique est : %d \n", nb_informatique);
             break;
         default:
             printf("Choix invalide.\n");
             break;
         }
-        printf("le nombre d'etudiant dans le departement math est : %d", nb_math);
-        printf("le nombre d'etudiant dans le departement physique est : %d", nb_physique);
-        printf("le nombre d'etudiant dans le departement chime est : %d", nb_chimie);
-        printf("le nombre d'etudiant dans le departement informatique est : %d", nb_informatique);
+
+
+
+
     }
 }
+
 void trier()
 {
     int choix;
@@ -574,7 +589,7 @@ void trier()
             {
                 for (int j = 0; j < taille - i - 1; j++)
                 {
-                    if (strcmp(T[j].nom, T[j + 1].nom) < 0)
+                    if (strcmp(T[j].nom, T[j + 1].nom) > 0)
                     {
                         temp = T[j];
                         T[j] = T[j + 1];
@@ -589,7 +604,7 @@ void trier()
             {
                 for (int j = 0; j < taille - i - 1; j++)
                 {
-                    if (strcmp(T[j].nom, T[j + 1].nom) > 0)
+                    if (strcmp(T[j].nom, T[j + 1].nom) < 0)
                     {
                         temp = T[j];
                         T[j] = T[j + 1];
@@ -603,24 +618,23 @@ void trier()
         break;
     case 2:
 
-        for (i = 0; i < taille; i++)
-        { // tri selection
-            int min = i;
-            etudiant temp;
-            for (j = i + 1; i < taille; i++)
-            {
-                if (T[j].note_generale < T[min].note_generale)
-                {
-                    min = j;
-                }
-            }
-            if (min != i)
-            {
-                temp = T[i];
-                T[i] = T[j];
-                T[j] = temp;
-            }
+            for (i = 0; i < taille - 1; i++) {
+        int min = i;
+        etudiant temp;
+
+        for (j = i + 1; j < taille; j++) {
+        if (T[j].note_generale < T[min].note_generale) {
+        min = j;
         }
+    }
+
+
+        if (min != i) {
+           temp = T[i];
+           T[i] = T[min];
+           T[min] = temp;
+         }
+         }
         break;
     case 3:
         for (i = 0; i < taille; i++)
@@ -636,26 +650,19 @@ void trier()
                 taille2++;
             }
         }
-        printf("les persones admis sont : ");
+        printf("les persones admis sont : \n");
         for (i = 0; i < taille1; i++)
         {
-            printf("| le nom %d est %s", i + 1, t1[i].nom);
-            printf("le prenom %d est %s", i + 1, t1[i].prenom);
-            printf("le departementde %d est %s", i + 1, t1[i].departement);
-            printf("le numero unique de l'eleve %d est : %d", i + 1, t1[i].id);
-            printf("la note generale de %d est : %.2f ", i + 1, t1[i].note_generale);
+            printf("| le nom %d est %s \n", i + 1, t1[i].nom);
+            printf("le prenom %d est %s \n", i + 1, t1[i].prenom);
+            printf("le departementde %d est %s \n", i + 1, t1[i].departement);
+            printf("le numero unique de l'eleve %d est : %d \n", i + 1, t1[i].id);
+            printf("la note generale de %d est : %.2f \n", i + 1, t1[i].note_generale);
         }
-        printf("les personnes non admis sont : ");
-        for (i = 0; i < taille2; i++)
-        {
-            printf("| le nom %d est %s", i + 1, t1[i].nom);
-            printf("le prenom %d est %s", i + 1, t2[i].prenom);
-            printf("le departementde %d est %s", i + 1, t1[i].departement);
-            printf("le numero unique de l'eleve %d est : %d", i + 1, t1[i].id);
-            printf("la note generale de %d est : %.2f ", i + 1, t1[i].note_generale);
+        
         }
     }
-}
+
 
 int main()
 {
